@@ -2,6 +2,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -45,6 +46,7 @@ import Control.DeepSeq
 import Data.Massiv.Core.Index.Internal
 import Data.Proxy
 import qualified GHC.Arr as I
+import GHC.Generics
 import qualified Data.Vector.Generic as V
 import qualified Data.Vector.Generic.Mutable as VM
 import qualified Data.Vector.Unboxed as VU
@@ -62,6 +64,7 @@ infixr 5 :>, :.
 --
 -- @since 0.1.0
 data Ix2 = {-# UNPACK #-} !Int :. {-# UNPACK #-} !Int
+    deriving (Generic)
 
 -- | 2-dimensional index constructor. Useful when infix notation is inconvenient. @(Ix2 i j) == (i :. j)@
 --
@@ -139,6 +142,7 @@ pattern Sz5 i5 i4 i3 i2 i1 = Sz (i5 :> i4 :> i3 :> i2 :. i1)
 --
 -- @since 0.1.0
 data IxN (n :: Nat) = {-# UNPACK #-} !Int :> !(Ix (n - 1))
+  deriving (Generic)
 
 -- | Defines n-dimensional index by relating a general `IxN` with few base cases.
 --

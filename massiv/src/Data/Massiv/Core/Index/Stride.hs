@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE PatternSynonyms #-}
 -- |
@@ -21,6 +22,7 @@ module Data.Massiv.Core.Index.Stride
 
 import Control.DeepSeq
 import Data.Massiv.Core.Index.Internal
+import GHC.Generics
 import System.Random.Stateful
 
 -- | Stride provides a way to ignore elements of an array if an index is divisible by a
@@ -49,7 +51,7 @@ import System.Random.Stateful
 --   column intact then you'd use @Stride (5 :. 1)@.
 --
 -- @since 0.2.1
-newtype Stride ix = SafeStride ix deriving (Eq, Ord, NFData)
+newtype Stride ix = SafeStride ix deriving (Eq, Ord, NFData, Generic)
 
 
 -- | A safe bidirectional pattern synonym for `Stride` construction that will make sure stride

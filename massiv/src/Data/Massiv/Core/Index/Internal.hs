@@ -3,6 +3,7 @@
 {-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DefaultSignatures #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GADTs #-}
@@ -68,6 +69,7 @@ import Data.Coerce
 import Data.Kind
 import Data.Massiv.Core.Iterator
 import Data.Typeable
+import GHC.Generics
 import GHC.TypeLits
 import System.Random.Stateful
 
@@ -108,7 +110,7 @@ newtype Sz ix =
   -- negative components. Use `Data.Massiv.Core.Index.Sz` pattern instead.
   --
   -- @since 0.3.0
-  deriving (Eq, Ord, NFData)
+  deriving (Eq, Ord, NFData, Generic)
 
 -- | A safe bidirectional pattern synonym for `Sz` construction that will make sure that none of
 -- the size elements are negative.
@@ -349,7 +351,7 @@ pullOutSzM (SafeSz sz) = fmap coerce . pullOutDimM sz
 -- | A way to select Array dimension at a value level.
 --
 -- @since 0.1.0
-newtype Dim = Dim { unDim :: Int } deriving (Eq, Ord, Num, Real, Integral, Enum, NFData)
+newtype Dim = Dim { unDim :: Int } deriving (Eq, Ord, Num, Real, Integral, Enum, NFData, Generic)
 
 instance Show Dim where
   show (Dim d) = "(Dim " ++ show d ++ ")"
